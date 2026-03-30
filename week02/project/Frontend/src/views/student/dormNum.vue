@@ -52,7 +52,7 @@ const submitForm = async() => {
 //重置按钮触发
 const resetForm = () => { 
   ElMessage.success('重置成功')
-  dormNum.value = ''
+  formData.value.dormNum = ''
   dormNumForm.value.resetFields()
 }
 

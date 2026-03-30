@@ -192,7 +192,8 @@ const delByIds =async()=>{
       //删除存储在oss的图片
     if(selectedIds.value && selectedIds.value.length > 0){
       for(let i = 0; i < selectedIds.value.length; i++){
-        const image = await queryRepairOrderById(selectedIds.value[i]).data.image
+        const result = await queryRepairOrderById(id)
+        const image = result.data.image
         if(image && image.length > 0){
           await deleteImage(image)
         }
@@ -383,7 +384,7 @@ const selById = async(id)=>{
        <!-- 第五行 -->
       <el-row :gutter="20"> 
         <el-col :span="12">
-          <el-form-item label="处理状态" label-width="100px ">
+          <el-form-item label="处理状态" prop="status" label-width="100px ">
               <el-select v-model="repairOrder.status" placeholder="请选择处理状态" >
                 <el-option
                   v-for="item in statusOptions"

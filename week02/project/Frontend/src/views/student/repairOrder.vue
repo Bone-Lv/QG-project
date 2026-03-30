@@ -146,7 +146,10 @@ const save = async() => {
 const rules = ref({
   deviceType: [
     { required: true, message: '请输入设备类型', trigger: 'blur' }
-  ]
+  ],
+  status: [
+    { required: true, message: '请选择状态', trigger: 'change' }
+  ],
 })
 const ruleForm = ref()
 
@@ -364,7 +367,7 @@ const beforeAvatarUpload = (rawFile) =>{
       <!-- 第三行 -->
        <el-row :gutter="20"> 
         <el-col :span="12">
-          <el-form-item label="设备类型" label-width="100px ">
+          <el-form-item label="设备类型" prop="deviceType" label-width="100px ">
             <el-input v-model="repairOrder.deviceType"  />
           </el-form-item>
         </el-col>
@@ -387,7 +390,7 @@ const beforeAvatarUpload = (rawFile) =>{
        <!-- 第五行 -->
       <el-row :gutter="20"> 
         <el-col :span="12">
-          <el-form-item label="处理状态" label-width="100px ">
+          <el-form-item label="处理状态" prop="status" label-width="100px ">
               <el-select v-model="repairOrder.status" placeholder="请选择处理状态" >
                 <el-option
                   v-for="item in statusOptions"
