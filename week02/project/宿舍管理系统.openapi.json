@@ -1,0 +1,1675 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "宿舍管理系统",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "登录接口"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "登录接口",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "登录接口"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "ID 编号",
+                    "title": "学号/工号"
+                  },
+                  "password": {
+                    "type": "string",
+                    "title": "密码"
+                  }
+                },
+                "required": [
+                  "id",
+                  "password"
+                ]
+              },
+              "example": {
+                "id": "3125004500",
+                "password": 123456
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "title": "学号/工号",
+                          "description": "ID 编号"
+                        },
+                        "role": {
+                          "type": "string",
+                          "title": "角色"
+                        },
+                        "token": {
+                          "type": "string",
+                          "title": "令牌"
+                        }
+                      },
+                      "title": "响应数据",
+                      "required": [
+                        "id",
+                        "role",
+                        "token"
+                      ],
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": {
+                    "id": "3125004519",
+                    "role": "学生",
+                    "token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoi5a2m55SfIiwiaWQiOiIzMTI1MDA0NTE5IiwiZXhwIjoxNzc0MzIwMzU1LCJpYXQiOjE3NzQyNzcxNTV9.SpJMlluWrpr6h3STiSfbyD7uCJz29e5MSu57otnbcv8"
+                  },
+                  "msg": "操作成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "注册用户",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "title": "学号",
+                    "description": "ID 编号"
+                  },
+                  "password": {
+                    "type": "string",
+                    "title": "密码"
+                  }
+                },
+                "required": [
+                  "password",
+                  "id"
+                ]
+              },
+              "example": {
+                "id": "3125004500",
+                "password": "123456"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "title": "响应数据",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": null,
+                  "msg": "注册成功！请返回登录界面登录。"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/student/{dormNum}": {
+      "put": {
+        "summary": "修改宿舍",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "dormNum",
+            "in": "path",
+            "description": "宿舍号",
+            "required": true,
+            "example": "西一332",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "令牌",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "title": "响应数据",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": null,
+                  "msg": "修改成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/student": {
+      "post": {
+        "summary": "创建报修单",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoi5a2m55SfIiwiaWQiOiIzMTI1MDA0NTE5IiwiZXhwIjoxNzc0MzIwMzU1LCJpYXQiOjE3NzQyNzcxNTV9.SpJMlluWrpr6h3STiSfbyD7uCJz29e5MSu57otnbcv8",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deviceType": {
+                    "type": "string",
+                    "title": "设备类型"
+                  },
+                  "description": {
+                    "type": "string",
+                    "title": "描述"
+                  },
+                  "status": {
+                    "type": "string",
+                    "title": "状态"
+                  },
+                  "image": {
+                    "type": "string",
+                    "title": "图片",
+                    "description": "url地址"
+                  }
+                },
+                "required": [
+                  "deviceType",
+                  "status",
+                  "image"
+                ]
+              },
+              "example": {
+                "deviceType": "空调",
+                "description": "漏水",
+                "status": "待处理",
+                "image": "http://localhost:8080/image"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "title": "响应数据",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": null,
+                  "msg": "报修成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "get": {
+        "summary": "查看保修单历史记录",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态",
+            "required": false,
+            "example": "已完成",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "description": "开始时间",
+            "required": false,
+            "example": "2026 11 11",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "description": "结束时间",
+            "required": false,
+            "example": "2026 11 11",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "dormNum",
+            "in": "query",
+            "description": "宿舍号",
+            "required": false,
+            "example": "西一332",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6IjY1NDMyMSIsInJvbGUiOiJzdHVkZW50IiwiaWQiOiIzMTI1MDA0NTE5IiwiZXhwIjoxNzc0NjM1NTMzLCJpYXQiOjE3NzQ1OTIzMzN9.bg7n7eUFfKnr7SLis_JcjL1jVGw0bzGx4L69oEcICoM",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "PageResult": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer"
+                            },
+                            "rows": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "title": "历史报修单",
+                          "required": [
+                            "total",
+                            "rows"
+                          ]
+                        }
+                      },
+                      "title": "响应数据",
+                      "required": [
+                        "PageResult"
+                      ],
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": {
+                    "total": 2,
+                    "rows": [
+                      {
+                        "description": "漏水",
+                        "deviceType": "空调",
+                        "status": "已完成",
+                        "createTime": null,
+                        "updateTime": null,
+                        "studentId": null,
+                        "dormNum": "西一栋332室",
+                        "adminId": null,
+                        "id": 2
+                      },
+                      {
+                        "description": "机题提。必面候近以院规。加公去中好。之教标们生事器引比。再任保发比置素样。那为青拉业写也再天。示知查。消为面适报六整那里。",
+                        "deviceType": "空调",
+                        "status": "待处理",
+                        "createTime": null,
+                        "updateTime": null,
+                        "studentId": null,
+                        "dormNum": "西一332",
+                        "adminId": null,
+                        "id": 3
+                      }
+                    ]
+                  },
+                  "msg": "操作成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/student/{id}": {
+      "put": {
+        "summary": "修改报修单",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "订单号",
+            "required": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deviceType": {
+                    "type": "string",
+                    "title": "设备类型"
+                  },
+                  "description": {
+                    "type": "string",
+                    "title": "描述"
+                  },
+                  "status": {
+                    "type": "string",
+                    "title": "状态"
+                  },
+                  "dormNum": {
+                    "type": "string",
+                    "title": "宿舍号"
+                  }
+                }
+              },
+              "example": {
+                "deviceType": "水龙头",
+                "description": "漏水。",
+                "status": "已取消",
+                "dormNum": "西二332"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "title": "响应数据",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": null,
+                  "msg": "取消成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/admin": {
+      "get": {
+        "summary": "根据条件查看报修单",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态",
+            "required": false,
+            "example": "已完成",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "description": "开始时间",
+            "required": false,
+            "example": "2020-11-11",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "description": "结束时间",
+            "required": false,
+            "example": "2020-11-11",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "dormNum",
+            "in": "query",
+            "description": "宿舍号或者楼编码",
+            "required": false,
+            "example": "西一",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页数",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "每页多少个",
+            "required": false,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "title": "总数"
+                        },
+                        "rows": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "device_type": {
+                                "type": "string",
+                                "title": "设备类型"
+                              },
+                              "description": {
+                                "type": "string",
+                                "title": "描述"
+                              },
+                              "status": {
+                                "type": "string",
+                                "title": "状态",
+                                "description": "状态"
+                              },
+                              "update_time": {
+                                "type": "string",
+                                "format": "date-time",
+                                "title": "更新时间"
+                              },
+                              "dorm_num": {
+                                "type": "string",
+                                "title": "宿舍号"
+                              },
+                              "id": {
+                                "type": "integer",
+                                "description": "ID 编号",
+                                "title": "单号"
+                              }
+                            },
+                            "required": [
+                              "device_type",
+                              "description",
+                              "status",
+                              "update_time",
+                              "dorm_num",
+                              "id"
+                            ]
+                          },
+                          "title": "报修单"
+                        }
+                      },
+                      "title": "响应数据",
+                      "required": [
+                        "total",
+                        "rows"
+                      ]
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": {
+                    "total": 2,
+                    "rows": [
+                      {
+                        "id": 4,
+                        "deviceType": "水龙头",
+                        "description": "sdasd",
+                        "status": "待处理",
+                        "createTime": null,
+                        "updateTime": "2026-03-24T16:57:43",
+                        "studentId": null,
+                        "dormNum": "西一332",
+                        "adminId": null,
+                        "image": null
+                      },
+                      {
+                        "id": 3,
+                        "deviceType": "空调",
+                        "description": "机题提。必面候近以院规。加公去中好。之教标们生事器引比。再任保发比置素样。那为青拉业写也再天。示知查。消为面适报六整那里。",
+                        "status": "已取消",
+                        "createTime": null,
+                        "updateTime": "2026-03-23T23:20:50",
+                        "studentId": null,
+                        "dormNum": "西一332",
+                        "adminId": null,
+                        "image": null
+                      }
+                    ]
+                  },
+                  "msg": "操作成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "删除报修单",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "报修单号数组",
+            "required": false,
+            "example": [
+              "[1,2]"
+            ],
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "title": "响应数据",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": null,
+                  "msg": "删除成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/admin/{id}": {
+      "get": {
+        "summary": "查看报修单详情",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "报修单号",
+            "required": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "ID 编号"
+                        },
+                        "deviceType": {
+                          "type": "string",
+                          "description": "设备类型"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "描述"
+                        },
+                        "status": {
+                          "type": "string",
+                          "description": "状态"
+                        },
+                        "createTime": {
+                          "type": "string",
+                          "description": "创建时间",
+                          "format": "date-time"
+                        },
+                        "updateTime": {
+                          "type": "string",
+                          "description": "更新时间",
+                          "format": "date-time"
+                        },
+                        "studentId": {
+                          "type": "string",
+                          "description": "学生id"
+                        },
+                        "dormNum": {
+                          "type": "string",
+                          "description": "宿舍号"
+                        },
+                        "adminId": {
+                          "type": "string",
+                          "description": "维修工人id"
+                        }
+                      },
+                      "title": "响应数据",
+                      "required": [
+                        "deviceType",
+                        "dormNum"
+                      ],
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": {
+                    "description": "漏水",
+                    "deviceType": "空调",
+                    "status": "已完成",
+                    "createTime": "2026-03-17T22:40:40",
+                    "updateTime": "2026-03-18T17:14:14",
+                    "studentId": "3125004519",
+                    "dormNum": "西一栋332室",
+                    "adminId": "0025004519",
+                    "id": 2
+                  },
+                  "msg": "操作成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "put": {
+        "summary": "更新报修单状态",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "报修单号",
+            "required": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "description": "状态",
+                    "title": "状态"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "title": "响应数据",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/admin/log": {
+      "get": {
+        "summary": "查询日志",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "adminId",
+            "in": "query",
+            "description": "工号",
+            "required": false,
+            "example": "0025004500",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "operation",
+            "in": "query",
+            "description": "操作",
+            "required": false,
+            "example": "AdminController.updateRepairOrderStatus",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "description": "开始日期",
+            "required": false,
+            "example": "2026-11-11",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "description": "结束日期",
+            "required": false,
+            "example": "2026-11-11",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "每页多少个",
+            "required": false,
+            "example": 5,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "令牌",
+            "required": false,
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYWRtaW4iLCJpZCI6IjAwMjUwMDQ1MDAiLCJleHAiOjE3NzQ4NTg2ODYsImlhdCI6MTc3NDg1MTQ4Nn0.LtH3u0X4bsQFpARa6GrEUk3Pn_Y5Wm5Hn9UDw8T9Zo8",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "pageResult": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer",
+                              "title": "总数"
+                            },
+                            "rows": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "adminId": {
+                                    "type": "string",
+                                    "title": "工号"
+                                  },
+                                  "operation": {
+                                    "type": "string",
+                                    "title": "操作"
+                                  },
+                                  "method": {
+                                    "type": "string",
+                                    "title": "方法"
+                                  },
+                                  "url": {
+                                    "type": "string",
+                                    "title": "访问地址"
+                                  },
+                                  "params": {
+                                    "type": "string",
+                                    "title": "查询参数"
+                                  },
+                                  "ip": {
+                                    "type": "string",
+                                    "title": "IP地址"
+                                  }
+                                },
+                                "required": [
+                                  "adminId",
+                                  "operation",
+                                  "method",
+                                  "url",
+                                  "params",
+                                  "ip"
+                                ]
+                              },
+                              "title": "返回结果"
+                            }
+                          },
+                          "required": [
+                            "total",
+                            "rows"
+                          ],
+                          "title": "分页查询结果"
+                        }
+                      },
+                      "title": "响应数据",
+                      "required": [
+                        "pageResult"
+                      ],
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": {
+                    "total": 6,
+                    "rows": [
+                      {
+                        "adminId": "0025004500",
+                        "id": 41,
+                        "ip": "0:0:0:0:0:0:0:1",
+                        "method": "DELETE",
+                        "operation": "AdminOperationLogController.delete",
+                        "operationTime": "2026-03-30T19:29:05",
+                        "params": "ids=1,2",
+                        "url": "/admin/log"
+                      },
+                      {
+                        "adminId": "0025004500",
+                        "id": 40,
+                        "ip": "0:0:0:0:0:0:0:1",
+                        "method": "DELETE",
+                        "operation": "AdminOperationLogController.delete",
+                        "operationTime": "2026-03-30T19:27:23",
+                        "params": "ids=1，2",
+                        "url": "/admin/log"
+                      },
+                      {
+                        "adminId": "0025004500",
+                        "id": 39,
+                        "ip": "0:0:0:0:0:0:0:1",
+                        "method": "PUT",
+                        "operation": "AdminController.updateRepairOrderStatus",
+                        "operationTime": "2026-03-30T14:00:33",
+                        "params": "",
+                        "url": "/admin"
+                      },
+                      {
+                        "adminId": "0025004500",
+                        "id": 38,
+                        "ip": "0:0:0:0:0:0:0:1",
+                        "method": "DELETE",
+                        "operation": "AdminOperationLogController.delete",
+                        "operationTime": "2026-03-30T14:00:21",
+                        "params": "ids[]=37,36",
+                        "url": "/admin/log"
+                      },
+                      {
+                        "adminId": "0025004500",
+                        "id": 4,
+                        "ip": "0:0:0:0:0:0:0:1",
+                        "method": "GET",
+                        "operation": "AdminController.page",
+                        "operationTime": "2026-03-30T13:50:04",
+                        "params": "status=&startTime=&endTime=&page=1&pageSize=10&dormNum=",
+                        "url": "/admin"
+                      }
+                    ]
+                  },
+                  "msg": "操作成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "批量删除日志",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "要删除的id",
+            "required": false,
+            "example": [
+              "1,2"
+            ],
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "title": "响应数据",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": null,
+                  "msg": "日志删除成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/upload": {
+      "post": {
+        "summary": "文件上传",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": ""
+                  }
+                }
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "title": "响应数据",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/changePassword": {
+      "put": {
+        "summary": "修改密码",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoi5a2m55SfIiwiaWQiOiIzMTI1MDA0NTE5IiwiZXhwIjoxNzc0MzIwMzU1LCJpYXQiOjE3NzQyNzcxNTV9.SpJMlluWrpr6h3STiSfbyD7uCJz29e5MSu57otnbcv8",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oldPassword": {
+                    "type": "string",
+                    "title": "原密码"
+                  },
+                  "newPassword": {
+                    "type": "string",
+                    "description": "新密码",
+                    "title": "新密码"
+                  }
+                },
+                "required": [
+                  "oldPassword",
+                  "newPassword"
+                ]
+              },
+              "example": {
+                "oldPassword": "654321",
+                "newPassword": "123456"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "title": "响应数据",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 1,
+                  "data": null,
+                  "msg": "修改成功"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/deleteImage": {
+      "delete": {
+        "summary": "删除图片",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "description": "图片的url地址",
+            "required": false,
+            "example": "http://localhost:8080/asddsad.jpg",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "状态码",
+                      "description": "1: 成功 , 0: 失败",
+                      "format": "int32"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "错误提示信息",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "title": "响应数据",
+                      "nullable": true
+                    }
+                  }
+                },
+                "example": {
+                  "code": 0,
+                  "msg": "string",
+                  "data": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Result": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "title": "状态码",
+            "description": "1: 成功 , 0: 失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "title": "错误提示信息",
+            "nullable": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {},
+            "title": "响应数据",
+            "nullable": true
+          }
+        }
+      },
+      "LoginInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "title": "员工ID"
+          },
+          "username": {
+            "type": "string",
+            "title": "用户名"
+          },
+          "name": {
+            "type": "string",
+            "title": "姓名"
+          },
+          "token": {
+            "type": "string",
+            "title": "令牌"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "name",
+          "token"
+        ]
+      },
+      "RepairOrder": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID 编号"
+          },
+          "deviceType": {
+            "type": "string",
+            "description": "设备类型"
+          },
+          "description": {
+            "type": "string",
+            "description": "描述"
+          },
+          "status": {
+            "type": "string",
+            "description": "状态"
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "更新时间",
+            "format": "date-time"
+          },
+          "studentId": {
+            "type": "string",
+            "description": "学生id"
+          },
+          "dormNum": {
+            "type": "string",
+            "description": "宿舍号"
+          },
+          "adminId": {
+            "type": "string",
+            "description": "维修工人id"
+          }
+        },
+        "required": [
+          "deviceType",
+          "dormNum"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "学号",
+            "description": "ID 编号"
+          },
+          "password": {
+            "type": "string",
+            "title": "密码"
+          },
+          "role": {
+            "type": "string",
+            "title": "角色"
+          },
+          "dormNum": {
+            "type": "string",
+            "title": "宿舍号"
+          }
+        },
+        "required": [
+          "id",
+          "password",
+          "role",
+          "dormNum"
+        ]
+      }
+    },
+    "responses": {},
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "开发环境"
+    }
+  ],
+  "security": []
+}
