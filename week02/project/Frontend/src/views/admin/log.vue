@@ -221,12 +221,7 @@ const delByIds =async()=>{
       <el-input v-model="searchForm.adminId" placeholder="请输入管理员id" />
     </el-form-item>
     <el-form-item label="操作">
-      <el-select v-model="searchForm.operation" placeholder="请输入操作" >
-        <el-option label="待处理" value="待处理" />
-        <el-option label="处理中" value="处理中" />
-        <el-option label="已完成" value="已完成" />
-        <el-option label="已取消" value="已取消" />
-      </el-select>
+      <el-input v-model="searchForm.operation" placeholder="请输入操作" />
     </el-form-item>
     <el-form-item label="日期">
       <span class="demonstration"></span>
