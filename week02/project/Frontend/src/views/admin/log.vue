@@ -59,50 +59,6 @@ const  log= ref({
 })
 
 
-// const add = () => { 
-//   log.value = {id:'',deviceType: '', description: '', dormNum: '', status: '', updateTime: ''}
-//   ruleForm.value?.resetFields()
-//   formTitle.value = '新增报修单'
-//   dialogFormVisible.value = true
-
-// const save = async() => { 
-//   //校验表单
-//   if (!ruleForm.value) {
-//     return
-//   }
-//   ruleForm.value.validate(async(valid) =>{
-//     if (valid) {
-//       let res = null
-//       if(log.value.id){
-//         res = await updateRepairOrder(log.value)
-//       }else{  
-//         res = await addRepairOrder(log.value)
-//       }
-
-//       if (res.code == 1) {//成功
-//         //提示信息
-//         ElMessage.success('保存成功')
-//         //隐藏对话框
-//         dialogFormVisible.value = false
-//         //查询数据
-//         search()
-//       } else {//失败
-//         ElMessage.error('保存失败')
-//       }
-//     } else { //不通过
-//       ElMessage.error('表单校验不通过')
-//     }
-    
-//   })
-// }
-
-// //表单校验规则
-// const rules = ref({
-//   deviceType: [
-//     { required: true, message: '请输入设备类型', trigger: 'blur' },
-//     { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
-//   ]
-// })
 const ruleForm = ref()
 
 //重置查询条件
@@ -189,23 +145,6 @@ const delByIds =async()=>{
     ElMessage.info('已取消删除')
   })
 }
-
-// //详情按钮
-// const selById = async(id)=>{ 
-//   formTitle.value = '报修单详情'
-
-//     //重置表单的校验规则
-//   if(ruleForm.value){
-//     ruleForm.value.resetFields()
-//   }
-
-//   const res = await queryById(id)
-//   if(res.code == 1){
-//     log.value = res.data
-//     dialogFormVisible.value = true
-//   }
-// }
-
 
 
 </script>
